@@ -132,6 +132,45 @@ const Keyboard = {
             }
         });
 
+        return fragment;
+    },
+
+    _triggerEvent(handlerName) {
+        if (typeof Keyboard.eventHandlers[handlerName] == "function") {
+            Keyboard.eventHandlers[handlerName](Keyboard.properties.value);
+        }
+    },
+
+    _toggleCapsLock() {
+        Keyboard.properties.capsLock = !Keyboard.properties.capsLock;
+
+        for (const key of Keyboard.elements.keys) {
+            if (key.childElementCount === 0) {
+                key.textContent = Keyboard.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
+            }
+        }
+    },
+
+    open(initialValue, oninput, onclose) {
+        Keyboard.properties.value = initialValue || "";
+        Keyboard.eventHandlers.oninput = oninput;
+        Keyboard.eventHandlers.onclose = onclose;
+        Keyboard.elements.main.classList.remove("keyboard--hidden");
+    },
+
+    close() {
+        Keyboard.properties.value = "";
+        Keyboard.eventHandlers.oninput = oninput;
+        Keyboard.eventHandlers.onclose = onclose;
+        Keyboard.elements.main.classList.add("keyboard--hidden");
+    }
+};
+
+window.addEventListener("DOMContentLoaded", function () {
+    Keyboard.init();
+});
+
+
 //     triggerEvent(handler) {
 //         console.log("EventName" + handler name);
 //     },
