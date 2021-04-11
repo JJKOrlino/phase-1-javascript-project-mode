@@ -17,12 +17,15 @@ const Keyboard = {
 
     init() {
         Keyboard.elements.main = document.createElement("div");
-        .elements.keysContainer = document.createElement("div");
+        Keyboard.elements.keysContainer = document.createElement("div");
+
         Keyboard.elements.main.classList.add("keyboard", "keyboard--hidden");
         Keyboard.elements.keysContainer.classList.add("keyboard__keys");
+
         Keyboard.elements.keysContainer.appendChild(Keyboard._createKeys());
         Keyboard.elements.keys = Keyboard.elements.keysContainer.querySelectorAll(".keyboard__key");
         Keyboard.elements.main.appendChild(Keyboard.elements.keysContainer);
+
         document.body.appendChild(Keyboard.elements.main);
 
         document.querySelectorAll(".use-keyboard-input").forEach(element => {
@@ -44,8 +47,8 @@ const Keyboard = {
             "space"
         ];
 
-        const createIconHTML = (icon_name) => {
-            return `<i class="material-icons">${icon_name}</i>`;
+        const createIconHTML = (icon_label) => {
+            return `<i class="material-icons">${icon_label}</i>`;
         };
 
         keyLayout.forEach(key => {
@@ -74,6 +77,39 @@ const Keyboard = {
                     keyElement.addEventListener("click", () => {
                         Keyboard._toggleCapsLock();
                         keyElement.classList.toggle("keyboard__key--active", Keyboard.properties.capsLock);
+                    });
+
+                    break;
+                
+                case "enter":
+                    keyElement.classList.add("keyboard__key--wide");
+                    keyElement.innerHTML = createIconHTML("keyboard_return");
+
+                    keyElement.addEventListener("click", () => {
+                        Keyboard.properties.value += "\n";
+                        Keyboard._triggerEvent("oninput");
+                    });
+
+                    break;
+
+                case "space":
+                    keyElement.classList.add("keyboard__key--extra-wide");
+                    keyElement.innerHTML = createIconHTML("space_bar");
+
+                    keyElement.addEventListener("click", () => {
+                        Keyboard.properties.value += " ";
+                        Keyboard._triggerEvent("oninput");
+                    });
+
+                    break;
+
+                case "done":
+                    keyElement.classList.add("keyboard__key--wide", "keyboard__key--dark");
+                    keyElement.innerHTML = createIconHTML("check_circle");
+
+                    keyElement.addEventListener("click", () => {
+                        Keyboard.close();
+                        Keyboard._triggerEvent("onclose");
                     });
 
                     break;
