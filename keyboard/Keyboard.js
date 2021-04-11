@@ -170,20 +170,3 @@ window.addEventListener("DOMContentLoaded", function () {
     Keyboard.init();
 });
 
-
-//     triggerEvent(handler) {
-//         console.log("EventName" + handler name);
-//     },
-
-//     open(values) {
-
-//     },
-
-//     close() {
-
-//     }
-// };
-
-// addEventListener("DOMContentLoaded") => {
-//     Keyboard.init();
-// };

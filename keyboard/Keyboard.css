@@ -1,0 +1,19 @@
+.keyboard {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 7px 0;
+    position: fixed;
+    background: #3d74bd;
+    box-shadow: 0 0 55px rgba(0, 0, 0, 0.375);
+    user-select: none;
+    transition: bottom 0.3s;
+}
+
+.keyboard--hidden {
+    bottom: -100%;
+}
+
+.keyboard__keys {
+    text-align: center;
+}
