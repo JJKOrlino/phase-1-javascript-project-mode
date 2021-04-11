@@ -44,33 +44,53 @@ const Keyboard = {
             "space"
         ];
 
-        const createIcon = (iconName) => {
-            return `<i class="letter-icons">${iconName}</i>`;
-        }
+        const createIconHTML = (icon_name) => {
+            return `<i class="material-icons">${icon_name}</i>`;
+        };
 
         keyLayout.forEach(key => {
             const keyElement = document.createElement("button");
-            const lineBreak = ["<-", "p", "ENTER", "?"].indexOf(key) !== -1;
+            const insertLineBreak = ["backspace", "p", "enter", "?"].indexOf(key) !== -1;
 
             keyElement.setAttribute("type", "button");
-            keyElement.classList.add("keyboardKey");
-        });
+            keyElement.classList.add("keyboard__key");
 
-    },
+            switch (key) {
+                case "backspace":
+                    keyElement.classList.add("keyboard__key--wide");
+                    keyElement.innerHTML = createIconHTML("backspace");
 
-    triggerEvent(handler) {
-        console.log("EventName" + handler name);
-    },
+                    keyElement.addEventListener("click", () => {
+                        this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
+                        this._triggerEvent("oninput");
+                    });
 
-    open(values) {
+                    break;
 
-    },
+                case "caps":
+                    keyElement.classList.add("keyboard__key--wide", "keyboard__key--activatable");
+                    keyElement.innerHTML = createIconHTML("keyboard_capslock");
 
-    close() {
+                    keyElement.addEventListener("click", () => {
+                        this._toggleCapsLock();
+                        keyElement.classList.toggle("keyboard__key--active", this.properties.capsLock);
+                    });
 
-    }
-};
+                    break;
 
-addEventListener("DOMContentLoaded") => {
-    Keyboard.init();
-};
+//     triggerEvent(handler) {
+//         console.log("EventName" + handler name);
+//     },
+
+//     open(values) {
+
+//     },
+
+//     close() {
+
+//     }
+// };
+
+// addEventListener("DOMContentLoaded") => {
+//     Keyboard.init();
+// };
