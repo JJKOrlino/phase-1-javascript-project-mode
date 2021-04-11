@@ -2,12 +2,12 @@ const Keyboard = {
     elements: {
         main: null,
         keysContainer: null,
-        key: []
+        keys: []
     },
 
     eventHandlers: {
-        input: null,
-        close: null
+        oninput: null,
+        onclose: null
     },
 
     properties: {
@@ -16,26 +16,32 @@ const Keyboard = {
     },
 
     init() {
-        //elements
         this.elements.main = document.createElement("div");
         this.elements.keysContainer = document.createElement("div");
-        //
-        this.elements.main.classList.add("keyboard", "keyboard-hidden");
-        this.elements.keysContainer.classList.add("keyboard", "keyboard-hidden");
-
-        this.elements.main.appendChild(this.elements.main);
+        this.elements.main.classList.add("keyboard", "keyboard--hidden");
+        this.elements.keysContainer.classList.add("keyboard__keys");
+        this.elements.keysContainer.appendChild(this._createKeys());
+        this.elements.keys = this.elements.keysContainer.querySelectorAll(".keyboard__key");
         this.elements.main.appendChild(this.elements.keysContainer);
+        document.body.appendChild(this.elements.main);
 
+        document.querySelectorAll(".use-keyboard-input").forEach(element => {
+            element.addEventListener("focus", () => {
+                this.open(element.value, currentValue => {
+                    element.value = currentValue;
+                });
+            });
+        });
     },
 
-    createKeys() {
-        const letter = document.createDocumentLetter();
+    _createKeys() {
+        const fragment = document.createDocumentFragment();
         const keyLayout = [
-            "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "<-",
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
             "q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
-            "capsLock", "a", "s", "d", "f", "g", "h", "j", "k", "l", "ENTER",
+            "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "enter",
             "done", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?",
-            "spacebar"
+            "space"
         ];
 
         const createIcon = (iconName) => {
