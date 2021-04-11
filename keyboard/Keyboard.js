@@ -114,6 +114,24 @@ const Keyboard = {
 
                     break;
 
+                default:
+                    keyElement.textContent = key.toLowerCase();
+    
+                    keyElement.addEventListener("click", () => {
+                        Keyboard.properties.value += Keyboard.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
+                        Keyboard._triggerEvent("oninput");
+                    });
+    
+                    break;
+            }
+    
+            fragment.appendChild(keyElement);
+    
+            if (insertLineBreak) {
+                fragment.appendChild(document.createElement("br"));
+            }
+        });
+
 //     triggerEvent(handler) {
 //         console.log("EventName" + handler name);
 //     },
