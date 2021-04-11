@@ -16,18 +16,18 @@ const Keyboard = {
     },
 
     init() {
-        this.elements.main = document.createElement("div");
-        this.elements.keysContainer = document.createElement("div");
-        this.elements.main.classList.add("keyboard", "keyboard--hidden");
-        this.elements.keysContainer.classList.add("keyboard__keys");
-        this.elements.keysContainer.appendChild(this._createKeys());
-        this.elements.keys = this.elements.keysContainer.querySelectorAll(".keyboard__key");
-        this.elements.main.appendChild(this.elements.keysContainer);
-        document.body.appendChild(this.elements.main);
+        Keyboard.elements.main = document.createElement("div");
+        .elements.keysContainer = document.createElement("div");
+        Keyboard.elements.main.classList.add("keyboard", "keyboard--hidden");
+        Keyboard.elements.keysContainer.classList.add("keyboard__keys");
+        Keyboard.elements.keysContainer.appendChild(Keyboard._createKeys());
+        Keyboard.elements.keys = Keyboard.elements.keysContainer.querySelectorAll(".keyboard__key");
+        Keyboard.elements.main.appendChild(Keyboard.elements.keysContainer);
+        document.body.appendChild(Keyboard.elements.main);
 
         document.querySelectorAll(".use-keyboard-input").forEach(element => {
             element.addEventListener("focus", () => {
-                this.open(element.value, currentValue => {
+                Keyboard.open(element.value, currentValue => {
                     element.value = currentValue;
                 });
             });
@@ -61,8 +61,8 @@ const Keyboard = {
                     keyElement.innerHTML = createIconHTML("backspace");
 
                     keyElement.addEventListener("click", () => {
-                        this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
-                        this._triggerEvent("oninput");
+                        Keyboard.properties.value = Keyboard.properties.value.substring(0, Keyboard.properties.value.length - 1);
+                        Keyboard._triggerEvent("oninput");
                     });
 
                     break;
@@ -72,8 +72,8 @@ const Keyboard = {
                     keyElement.innerHTML = createIconHTML("keyboard_capslock");
 
                     keyElement.addEventListener("click", () => {
-                        this._toggleCapsLock();
-                        keyElement.classList.toggle("keyboard__key--active", this.properties.capsLock);
+                        Keyboard._toggleCapsLock();
+                        keyElement.classList.toggle("keyboard__key--active", Keyboard.properties.capsLock);
                     });
 
                     break;
