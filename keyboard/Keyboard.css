@@ -38,3 +38,34 @@
     padding: 0;
     -webkit-tap-highlight-color: transparent;
 }
+.keyboard__key:active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.keyboard__key--activatable::after {
+    content: '';
+    top: 9px;
+    right: 9px;
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+}
+
+.keyboard__key--active::after {
+    background: #eeff00;
+}
+
+.keyboard__key--dark {
+    background: rgba(0, 0, 0, 0.30);
+}
+
+.keyboard__key--wide {
+    width: 14%;
+}
+
+.keyboard__key--extra-wide {
+    width: 40%;
+    max-width: 500px;
+}
